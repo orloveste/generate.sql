@@ -187,3 +187,35 @@ select max(valoareNota) from scoala.materii
     join scoala.note n on p.idPredare = n.idPredare
     join scoala.elevi e on n.idElev = e.idElev
         where numeElev='Joric Bunel';
+#tema part 1 MySQL 13-17.01.2019
+# Vreau ca pana sambata, cand ne vedem, sa va uitati pe baza de date pe care o avem acum. Dupa asta,
+# vreau sa vedeti 5 informatii pe care le putem obtine (ex. cate note sunt la o clasa). Dupa asta, vreua sa
+# scrieti query-ul necesar pentru asta. Deci, tema are 2 componente :
+# Ask questions.
+# Answer questions.
+# Revin maine cu urmatoarea parte din tema
+
+# 1.cate note sunt la un elev?
+select count(numeElev) from scoala.note
+                                join scoala.elevi e on note.idElev = e.idElev
+where numeElev = 'Fratili Mic';
+# 2.cate note sunt la o clasa?
+select count(note.idNota) from scoala.note
+                                   join scoala.elevi e on note.idElev = e.idElev
+                                   join scoala.clasa c on e.idClasa = c.idClasa
+where numeClasa = '10A';
+# 3. cate note sunt date de un profesor?
+select count(note.idNota) from scoala.note
+                                   join scoala.profesorimaterie p on note.idPredare = p.idPredare
+                                   join scoala.profesori p2 on p.idProfesor = p2.idProfesor
+                                   join scoala.materii m on p.idMaterie = m.idMaterie
+where numeProfesor = 'Japca Florin';
+# 4. cate note sunt la o materie?
+select count(note.idNota) from scoala.note
+                                   join scoala.profesorimaterie p on note.idPredare = p.idPredare
+                                   join scoala.materii m on p.idMaterie = m.idMaterie
+where numeMaterie = 'Prins la furca';
+# 5. cati elevi sunt la o clasa?
+select count(idElev) from scoala.elevi
+                              join scoala.clasa c on elevi.idClasa = c.idClasa
+where numeClasa = '10b'
